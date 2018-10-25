@@ -25,18 +25,31 @@ defmodule PhoneVerification.Provider.Authy do
              params: params
            ),
          {:ok, body} <- config(:json_codec).decode(body) do
-      parse_body(body)
+      parse_body(action, body)
     else
       _ -> %{message: "Service unavailable", code: 503}
     end
   end
 
-  defp parse_body(%{"success" => true, "message" => message}) do
+  defp parse_body(
+         "start",
+         %{
+           "success" => true,
+           "message" => message,
+           "carrier" => carrier,
+           "seconds_to_expire" => seconds_to_expire
+         }
+       ) do
+    {:ok, %{message: message, carrier: carrier, seconds_to_expire: seconds_to_expire}}
+  end
+
+  defp parse_body("check", %{"success" => true, "message" => message}) do
     {:ok, %{message: message}}
   end
 
-  defp parse_body(%{"success" => false, "message" => message, "error_code" => error_code}) do
-    {:error, %{message: message, code: error_code}}
+  defp parse_body(_action, %{"success" => false, "message" => message, "error_code" => error_code}) do
+    {code, _} = Integer.parse(error_code)
+    {:error, %{message: message, code: code}}
   end
 
   defp transform_params(%{phone_number: phone_number} = params, supported_keys) do

@@ -1,6 +1,8 @@
 defmodule PhoneVerification do
   @behaviour PhoneVerification.Provider
 
+  @type verification_code :: String.t()
+
   def config(key) do
     Application.get_env(:phone_verification, key)
   end

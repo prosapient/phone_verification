@@ -30,18 +30,21 @@ config :phone_verification, PhoneVerification.Provider.Authy,
 ## Usage
 
 ```elixir
-> PhoneVerification.start(%{phone_number: %{country_code: "380", subscriber_number: "000000000"}})
+> PhoneVerification.start(%{phone_number: %PhoneVerification.PhoneNumber{country_code: "380", subscriber_number: "000000000"}})
 {:ok, %{message: "Text message sent to +380 00-000-0000."}}
 
-> PhoneVerification.check(%{phone_number: %{country_code: "380", subscriber_number: "000000000"}, verification_code: "1111"})
+> PhoneVerification.check(%{phone_number: %PhoneVerification.PhoneNumber{country_code: "380", subscriber_number: "000000000"}, verification_code: "1111"})
 {:ok, %{message: "Verification code is correct."}}
 
-> PhoneVerification.check(%{phone_number: %{country_code: "380", subscriber_number: "000000000"}, verification_code: "1111"})
+> PhoneVerification.check(%{phone_number: %PhoneVerification.PhoneNumber{country_code: "380", subscriber_number: "000000000"}, verification_code: "1111"})
 {:error,
  %{
    code: "60023",
    message: "No pending verifications for +380 00-000-0000 found."
  }}
+
+> %PhoneVerification.PhoneNumber{country_code: "380", subscriber_number: "000000000"} |> to_string()
+"+380000000000"
 
 ```
 Docs: [https://hexdocs.pm/phone_verification](https://hexdocs.pm/phone_verification).
