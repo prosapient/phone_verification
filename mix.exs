@@ -4,7 +4,7 @@ defmodule PhoneVerification.MixProject do
   def project do
     [
       app: :phone_verification,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.3",
       start_permanent: Mix.env() == :prod,
       description: description(),
