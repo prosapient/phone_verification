@@ -8,4 +8,6 @@ config :phone_verification,
 
 config :phone_verification, PhoneVerification.Provider.Authy,
   # json_codec: Jason,
-  api_key: System.get_env("AUTHY_API_KEY")
+  api_key: System.get_env("AUTHY_API_KEY"),
+  # example: %{ "+380001234567" => "0000", "+380001234568" => "1234" }
+  mocks: %{}
