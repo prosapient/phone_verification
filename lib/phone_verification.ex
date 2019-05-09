@@ -17,7 +17,6 @@ defmodule PhoneVerification do
           {:ok,
            %{
              message: String.t(),
-             carrier: String.t(),
              seconds_to_expire: non_neg_integer()
            }}
           | {:error, %{message: String.t(), code: non_neg_integer()}}

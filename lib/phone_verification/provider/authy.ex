@@ -5,7 +5,6 @@ defmodule PhoneVerification.Provider.Authy do
   # actually, it can be infinity, but we have to return a number
   @expiration_time_for_mock_phone_number_security_code 600
 
-  @mock_carrier "life:) - Astelit"
   @supported_keys [:phone_number, :country_code, :via, :locale, :code_length, :custom_code]
   @impl true
   def start(%{phone_number: phone_number} = params) do
@@ -13,8 +12,7 @@ defmodule PhoneVerification.Provider.Authy do
       {:ok,
        %{
          seconds_to_expire: @expiration_time_for_mock_phone_number_security_code,
-         message: "Requested verification using mock: #{phone_number}.",
-         carrier: @mock_carrier
+         message: "Requested verification using mock: #{phone_number}."
        }}
     else
       request(:post, "start", transform_params(params, @supported_keys))
@@ -52,11 +50,10 @@ defmodule PhoneVerification.Provider.Authy do
          %{
            "success" => true,
            "message" => message,
-           "carrier" => carrier,
            "seconds_to_expire" => seconds_to_expire
          }
        ) do
-    {:ok, %{message: message, carrier: carrier, seconds_to_expire: seconds_to_expire}}
+    {:ok, %{message: message, seconds_to_expire: seconds_to_expire}}
   end
 
   defp parse_body("check", %{"success" => true, "message" => message}) do

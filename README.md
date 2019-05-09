@@ -10,7 +10,7 @@ The package can be installed by adding `phone_verification` to your list of depe
 def deps do
   [
     {:jason, "~> 1.1"}, # or any other JSON library
-    {:phone_verification, "~> 0.3.0"}
+    {:phone_verification, "~> 0.4.0"}
   ]
 end
 ```
