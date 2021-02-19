@@ -39,7 +39,7 @@ defmodule PhoneVerification.MixProject do
   defp deps do
     [
       {:httpoison, "~> 1.0"},
-      {:dialyxir, "~> 1.0.0-rc.3", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.1.0", only: [:dev], runtime: false},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
